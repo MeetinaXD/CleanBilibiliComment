@@ -4,7 +4,7 @@
 > 世人苦肉蛋奶久矣
 
 ## 食用方法
-下载`clean-bilibili-comment.js`并导入到`Tampermonkey`中选择启用，或者直接在github打开`clean-bilibili-comment.js`，点击右上角的`RAW`，自己新建脚步直接全选覆盖即可。
+下载`clean-bilibili-comment.js`并导入到`Tampermonkey`中选择启用，或者直接在github打开`clean-bilibili-comment.js`，点击右上角的`RAW`，自己新建脚本然后全选覆盖即可。
 
 默认已经自带一条回形针的过滤示例，如果喜欢吃肉蛋奶，可以反向过滤（笑
 
