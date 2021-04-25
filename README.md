@@ -1,15 +1,31 @@
 # Clean Bilibili Comment
-最后更新: Febr 27, 2021.
+最后更新: Apri 25, 2021.
 
 > 世人苦肉蛋奶久矣
 
+这个脚本运行在浏览器上，需要`Tampermonkey`拓展程序的支持。
+脚本可以**按需屏蔽掉不希望出现的评论**。
+
+## 功能介绍
+- 可以按关键字（使用正则）屏蔽不希望出现的评论
+- 可以屏蔽符合条件的网页链接（如网页标题出现了不希望看见的关键字）
+- 可以对不同的up主设定不同的规则; 也可以设置全局规则
+
 ## 食用方法
-下载`clean-bilibili-comment.js`并导入到`Tampermonkey`中选择启用，或者直接在github打开`clean-bilibili-comment.js`，点击右上角的`RAW`，自己新建脚本然后全选覆盖即可。
+> 需要Tampermonkey环境，请先安装Tampermonkey拓展程序。
+
+1.**使用GreasyFork安装**
+打开连接：[Clean Bilibili Comment - GreasyFork](https://greasyfork.org/zh-CN/scripts/422375-clean-bilibili-comment)，并点击安装
+
+2.**手动安装**
+下载`clean-bilibili-comment.js`并导入到`Tampermonkey`中选择启用
+
+或者直接在github打开`clean-bilibili-comment.js`，点击右上角的`RAW`，自己新建脚本然后全选覆盖即可。
 
 默认已经自带一条回形针的过滤示例，如果喜欢吃肉蛋奶，可以反向过滤（笑
 
 ## 自定义规则 `对于0.2版本`
-在`第19行`找到`regExp`对象，按照第一条默认规则的格式复制编写。
+在脚本的`第19行`找到`regExp`对象，按照第一条默认规则的格式复制编写。
 
 **默认规则如下**
 ```js
@@ -36,6 +52,13 @@
 脚本按照匹配的方式运行，如果你在规则中指定了命中条件，那么这条规则只有在命中成功后开始工作。
 
 ### 规则属性
+这里对规则中的各个参数进行说明。
+
+**可选类型**：参数允许传入的值类型
+
+**命中方式**：当传入不同类型的值时，对应的工作方式
+
+
 #### `author`
 **可选类型**
 
