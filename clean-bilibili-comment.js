@@ -21,7 +21,10 @@
       author: 258150656,
       title: /(回形针|PaperClip)+/,
       filter: /(肉蛋奶|巴西雨林|黑子|买水|森林|人口|影响|黑名单|拉黑|雨林|原谅|敌军|毁掉|垄断|监控|打钱)+/,
-      init: "检测到回形针视频",
+      init(){
+        console.log('检测到回形针📎视频');
+        $('.common').hide()
+      },
       // set the flag as false to disable printing blocked comments
       showBlocked: true
     },
