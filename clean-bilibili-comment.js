@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         Clean Bilibili Comment
 // @namespace    https://meetinaxd.ltiex.com
-// @version      0.2
+// @version      0.3
 // @description  To be or not to be, that's a question.
 // @author       MeetinaXD
 // @match        https://www.bilibili.com/video/*
 // @grant        none
+// @license      MIT
 // ==/UserScript==
 
 // window.vd -> bilibili video info.
