@@ -36,10 +36,60 @@
       // use RegExp **obj** to match
       title: /\w+/,
       // use RegExp **obj** to match
-      filter: /(肉蛋奶|巴西雨林|黑子|买水|森林|人口|影响|黑名单|拉黑|雨林|原谅|敌军|毁掉|垄断|监控|打钱|水军)+/,
-      init: "全局应用生效"
+      filter: /(肉蛋奶|巴西雨林|拉黑|敌军|毁掉|打钱|水军)+/,
+      init: "全局应用生效",
+      showBlocked: true,
+      // blockUser: true
     }
   ]
+
+  const users = []
+  let timer = null
+
+  /**
+   * Block user by mid list
+   * [Reference] https://github.com/Hsury/Bilibili-Toolkit/blob/411307217b07ad37485e9642aab8761b4cc50eda/bilibili.py#L676-L690
+   * Thanks to ESWZY. https://github.com/ESWZY
+   */
+  function blockUser(m) {
+    if (!Array.isArray(m))
+      m = [m]
+    const csrf = document.cookie.split(';').find(e => e.indexOf('bili_jct') !== -1).split('=')[1]
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: 'https://api.bilibili.com/x/relation/batch/modify',
+        type: 'POST',
+        data: {
+          fids: m.join(','),
+          act: 5,
+          csrf,
+          re_src: 222
+        },
+        xhrFields: {
+          withCredentials: true
+        },
+        success: v => {
+          if (v.code === 0)
+            resolve()
+          else
+            reject(v.message)
+        },
+        error: reject
+      })
+    })
+  }
+
+  function doBlock() {
+    if (timer !== null)
+      clearTimeout(timer)
+    // 5 secs debounce
+    timer = setTimeout(() => {
+      blockUser(users)
+        .then(() => console.log('Block users:', users.join(',')))
+        .catch(e => console.error('Block user error', e))
+      timer = null
+    }, 5000)
+  }
 
   let currentExp = null
   function init() {
@@ -69,8 +119,7 @@
       const exp = currentExp.filter
       if (extra) {
         let replace = ""
-        let k
-        for (k in extra){
+        for (let k in extra){
           if (exp.test(extra[k].title)){
             extra[k] = {}
             replace += urlBlock
@@ -83,8 +132,14 @@
       let text = e.content.message
       if (!exp.test(text)) {
         domText = fn.call(window.bbComment.prototype, e)
-      } else if(currentExp.showBlocked) {
-        console.log('\t%c已过滤 >>> ', "color: orange",  text)
+      } else {
+        if (currentExp.showBlocked) {
+          console.log('\t%c已过滤 >>> ', "color: orange",  text)
+        }
+        if (currentExp.blockUser) {
+          users.push(e.mid)
+          doBlock()
+        }
       }
       return domText
     }
